@@ -4,7 +4,6 @@
 
 import { ok } from "assert";
 import { pipeline, env } from '@xenova/transformers';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 env.allowLocalModels = false;
 
@@ -17,26 +16,6 @@ export abstract class LLMClient {
   constructor(public model?: string) {}
 
   abstract complete(prompt: string, ...kwargs: any[]): Promise<LLMResponse>;
-}
-
-export class GeminiLLMClient extends LLMClient {
-  private client: GoogleGenerativeAI;
-
-  constructor(model: string) {
-    super(model);
-    ok(process.env.GEMINI_API_KEY, 'GEMINI_API_KEY environment variable not set.');
-    this.client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  }
-
-  async complete(prompt: string, ...kwargs: any[]): Promise<LLMResponse> {
-    const model = this.client.getGenerativeModel({ model: this.model! });
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    return {
-      text,
-      raw: result.response,
-    };
-  }
 }
 
 export class DummyLLMClient extends LLMClient {
