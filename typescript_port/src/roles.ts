@@ -75,10 +75,8 @@ export class Generator {
         if (attempt + 1 >= this.maxRetries) {
           break;
         }
-        prompt =
-          basePrompt +
-          "\n\n务必仅输出单个有效 JSON 对象，" +
-          "请转义所有引号或改用单引号，避免输出额外文本。";
+        prompt = basePrompt + "\n\nMake sure to output only a single valid JSON object." +
+"Please escape all quotes or use single quotes to avoid outputting extra text.";
       }
     }
     throw new Error(`Generator failed to produce valid JSON. ${lastError}`);
@@ -175,10 +173,8 @@ export class Reflector {
           if (attempt + 1 >= this.maxRetries) {
             break;
           }
-          prompt =
-            basePrompt +
-            "\n\n请严格输出有效 JSON，对双引号进行转义，" +
-            "不要输出额外解释性文本。";
+          prompt = basePrompt + "\n\nPlease strictly output valid JSON, escape double quotes, " +
+"Do not output additional explanatory text.";
         }
       }
     }
@@ -234,8 +230,8 @@ export class Curator {
         }
         prompt =
           basePrompt +
-          "\n\n提醒：仅输出有效 JSON，所有字符串请转义双引号或改用单引号，" +
-          "不要添加额外文本。";
+          "\n\nReminder: Only output valid JSON. Please escape double quotes or use single quotes for all strings. " +
+"Do not add extra text.";
       }
     }
     throw new Error(`Curator failed to produce valid JSON. ${lastError}`);
