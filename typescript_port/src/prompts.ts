@@ -28,9 +28,7 @@ Respond with a compact JSON object:
 export const REFLECTOR_PROMPT = `You are a senior reviewer diagnosing the generator's trajectory.
 Use the playbook, model reasoning, and feedback to identify mistakes and actionable insights.
 Output must be a single valid JSON object. Do NOT include analysis text or explanations outside the JSON.
-Begin the response with 
- and end with 
-.
+Begin the response with \`{{\` and end with \`}}\`.
 
 Question:
 {question}
